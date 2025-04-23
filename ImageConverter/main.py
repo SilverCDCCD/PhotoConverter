@@ -2,6 +2,13 @@ import os
 from PIL import Image
 
 
+def verify_folders():
+	if not os.path.exists(old_directory):
+		os.mkdir(old_directory)
+	if not os.path.exists(new_directory):
+		os.mkdir(new_directory)
+
+
 def save_updated(img_name: str, image_format: str, rotate: float = 0, resize: tuple[int, int] = (0, 0)):
 	with Image.open(img_name) as image:
 		new_file_name = ""
@@ -19,6 +26,8 @@ def save_updated(img_name: str, image_format: str, rotate: float = 0, resize: tu
 
 old_directory = "./originals"
 new_directory = "./updated"
+
+verify_folders()
 files = [f for f in os.listdir(old_directory) if os.path.isfile(f"{old_directory}/{f}")]
 for f in files:
 	save_updated(f"{old_directory}/{f}", "jpeg", 90, (128, 128))
